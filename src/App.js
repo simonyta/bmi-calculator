@@ -1,26 +1,31 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { Input } from './input/input';
 
-function App() {
+let weight;
+let height;
+
+export function App() {
+  const [bmi, setBmi] = React.useState();
+
+  function onValueChange(event) {
+    if (event.target.id === 'weight') {
+      weight = event.target.value;
+    } else if (event.target.id === 'height') {
+      height = event.target.value;
+    }
+
+    if (height && weight) {
+      setBmi(Math.abs(weight / Math.pow(height, 2)));
+    }
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Input id="weight" label="Weight" onBlur={onValueChange} />
+      <br />
+      <Input id="height" label="Height" onBlur={onValueChange} />
+      Result: {bmi}
+    </>
   );
 }
-
-export default App;
