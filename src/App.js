@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import { Input } from './input/input';
+import { Result } from './result/result';
 
 let weight;
 let height;
@@ -18,6 +19,9 @@ export function App() {
     if (height && weight) {
       setBmi(Math.abs(weight / Math.pow(height, 2)));
     }
+    if (!event.target.value) {
+      setBmi(undefined);
+    }
   }
 
   return (
@@ -25,7 +29,7 @@ export function App() {
       <Input id="weight" label="Weight" onBlur={onValueChange} />
       <br />
       <Input id="height" label="Height" onBlur={onValueChange} />
-      Result: {bmi}
+      <Result bmi={bmi} />
     </>
   );
 }
